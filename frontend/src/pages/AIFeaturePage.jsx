@@ -16,6 +16,7 @@ const featureInfo = {
   'performance-reporter': { name: 'AI Performance Reporter', icon: '📋', placeholder: 'e.g., Generate an executive summary of all 2025 trade show performance...', gradient: 'linear-gradient(135deg, #6366f1, #4f46e5)' },
   'sponsorship-advisor': { name: 'AI Sponsorship Advisor', icon: '💼', placeholder: 'e.g., How should we structure sponsorship tiers for maximum revenue?', gradient: 'linear-gradient(135deg, #84cc16, #22c55e)' },
   'networking-strategy': { name: 'AI Networking Strategy', icon: '🌐', placeholder: 'e.g., Create a networking plan for our top 10 prospects at MWC 2026...', gradient: 'linear-gradient(135deg, #0ea5e9, #6366f1)' },
+  'post-event-survey-automation': { name: 'AI Post-Event Survey Automation', icon: '📨', placeholder: 'e.g., Generate a 5-min post-event survey for B2B exhibitors at CES focused on ROI and content...', gradient: 'linear-gradient(135deg, #6366f1, #ec4899)' },
 };
 
 export default function AIFeaturePage() {
@@ -34,7 +35,13 @@ export default function AIFeaturePage() {
     setError('');
     setResult(null);
     try {
-      const data = await api.aiRequest(feature, prompt || undefined);
+      let data;
+      if (feature === 'post-event-survey-automation') {
+        // Map free-form prompt into the structured payload this endpoint expects.
+        data = await api.aiPost(feature, { audience: 'attendees', focus_areas: prompt || 'overall satisfaction, content, networking, ROI' });
+      } else {
+        data = await api.aiRequest(feature, prompt || undefined);
+      }
       setResult(data.result);
       setHistory(prev => [{ prompt: prompt || '(default analysis)', result: data.result, time: new Date().toLocaleTimeString() }, ...prev]);
     } catch (err) {

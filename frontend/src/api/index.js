@@ -35,4 +35,21 @@ export const api = {
 
   // AI
   aiRequest: (endpoint, prompt) => request(`/ai/${endpoint}`, { method: 'POST', body: JSON.stringify({ prompt }) }),
+  aiPost: (endpoint, body) => request(`/ai/${endpoint}`, { method: 'POST', body: JSON.stringify(body || {}) }),
+
+  // File upload helper (for OCR / floor plans / photos)
+  uploadFile: async (resource, file, extra = {}) => {
+    const fd = new FormData();
+    fd.append('file', file);
+    Object.entries(extra).forEach(([k, v]) => fd.append(k, v));
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${API_BASE}/${resource}/upload`, {
+      method: 'POST',
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      body: fd,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Upload failed');
+    return data;
+  },
 };

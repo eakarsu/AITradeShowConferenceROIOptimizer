@@ -26,10 +26,14 @@ export default function Dashboard() {
   ];
 
   const aiQuickActions = [
+    { label: 'Capture Lead (OCR)', desc: 'Snap a card → auto-create lead', icon: '📸', path: '/workflow/lead-capture' },
+    { label: 'CRM Sync', desc: 'Push qualified leads, pull deals', icon: '🔗', path: '/workflow/crm-sync' },
+    { label: 'Email Cadences', desc: 'Schedule auto-followups', icon: '✉️', path: '/workflow/cadences' },
+    { label: 'Booth Heatmap', desc: 'Floor-plan foot traffic', icon: '🗺️', path: '/workflow/heatmap' },
+    { label: 'Event Briefing', desc: 'T-24h pre-event AI pack', icon: '📋', path: '/workflow/briefing' },
     { label: 'Predict ROI', desc: 'AI-powered ROI forecasting', icon: '🔮', path: '/ai/roi-predictor' },
     { label: 'Score Leads', desc: 'Prioritize your best leads', icon: '⭐', path: '/ai/lead-scorer' },
     { label: 'Optimize Budget', desc: 'Smart budget allocation', icon: '💎', path: '/ai/budget-optimizer' },
-    { label: 'Performance Report', desc: 'Executive summary', icon: '📋', path: '/ai/performance-reporter' },
   ];
 
   return (

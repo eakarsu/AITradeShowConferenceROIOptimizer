@@ -98,6 +98,14 @@ const aiFeatures = [
     gradient: 'linear-gradient(135deg, #0ea5e9, #6366f1)',
     category: 'Networking',
   },
+  {
+    id: 'post-event-survey-automation',
+    name: 'AI Post-Event Survey Automation',
+    description: 'Generate a tailored post-event survey (questions, types, distribution recommendations) ready to send to attendees.',
+    icon: '📨',
+    gradient: 'linear-gradient(135deg, #6366f1, #ec4899)',
+    category: 'Marketing',
+  },
 ];
 
 export default function AICenter() {
