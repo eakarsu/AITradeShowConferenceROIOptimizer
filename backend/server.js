@@ -27,6 +27,7 @@ app.use('/api/followups', require('./routes/followups'));
 app.use('/api/budgets', require('./routes/budgets'));
 app.use('/api/ai', require('./routes/ai'));
 app.use('/api/dashboard', require('./routes/dashboard'));
+app.use('/api/custom-views', require('./routes/customViews'));
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });

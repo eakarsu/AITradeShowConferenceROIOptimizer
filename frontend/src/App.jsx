@@ -14,6 +14,7 @@ import PostEventSentiment from './pages/PostEventSentiment';
 import ABMTargeting from './pages/ABMTargeting';
 import CompetitorWinLoss from './pages/CompetitorWinLoss';
 import PortfolioOptimizer from './pages/PortfolioOptimizer';
+import CustomViewsPage from './pages/CustomViewsPage';
 // === Batch 08 Gaps & Frontend Mounts ===
 import CfAttendeeSentimentTrackingViaPostEventSurveys from './pages/CfAttendeeSentimentTrackingViaPostEventSurveys'
 import CfAccountBasedMarketingTargetingPersonalizingOutreachTo from './pages/CfAccountBasedMarketingTargetingPersonalizingOutreachTo'
@@ -65,6 +66,12 @@ const sidebarSections = [
     ]
   },
   {
+    title: 'Event Views',
+    items: [
+      { id: 'custom-views', label: 'Event Views', icon: '🗂️', path: '/custom-views' },
+    ]
+  },
+  {
     title: 'AI Center',
     items: [
       { id: 'ai-center', label: 'AI Hub', icon: '🤖', path: '/ai' },
@@ -87,6 +94,12 @@ const sidebarSections = [
     ]
   }
 ];
+
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem('token');
+  if (!token) return <Navigate to="/login" />;
+  return children;
+}
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -165,6 +178,7 @@ function ProtectedLayout() {
           <Route path="/workflow/cadences" element={<FollowupSequences />} />
           <Route path="/workflow/heatmap" element={<BoothHeatmap />} />
           <Route path="/workflow/briefing" element={<EventBriefingPack />} />
+          <Route path="/custom-views" element={<CustomViewsPage />} />
         {/* // === Batch 08 Gaps & Frontend Mounts === */}
       <Route path="/cf-attendee-sentiment-tracking-via-post-event-surveys-to-predict" element={<ProtectedRoute><CfAttendeeSentimentTrackingViaPostEventSurveys /></ProtectedRoute>} />
       <Route path="/cf-account-based-marketing-targeting-personalizing-outreach-to-high-value-attendees" element={<ProtectedRoute><CfAccountBasedMarketingTargetingPersonalizingOutreachTo /></ProtectedRoute>} />
