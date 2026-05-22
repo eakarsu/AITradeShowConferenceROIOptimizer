@@ -15,6 +15,11 @@ import ABMTargeting from './pages/ABMTargeting';
 import CompetitorWinLoss from './pages/CompetitorWinLoss';
 import PortfolioOptimizer from './pages/PortfolioOptimizer';
 import CustomViewsPage from './pages/CustomViewsPage';
+import CodexCustomVizFeature from './pages/CodexCustomVizFeature';
+import CodexOperationsFeature from './pages/CodexOperationsFeature';
+
+import TimelineView from './pages/TimelineView';
+
 // === Batch 08 Gaps & Frontend Mounts ===
 import CfAttendeeSentimentTrackingViaPostEventSurveys from './pages/CfAttendeeSentimentTrackingViaPostEventSurveys'
 import CfAccountBasedMarketingTargetingPersonalizingOutreachTo from './pages/CfAccountBasedMarketingTargetingPersonalizingOutreachTo'
@@ -156,6 +161,10 @@ function ProtectedLayout() {
       <Sidebar />
       <div className="main-content">
         <Routes>
+        <Route path="/insights/timeline" element={<ProtectedRoute><TimelineView /></ProtectedRoute>} />
+        <Route path="/codex/custom-viz" element={<ProtectedRoute><CodexCustomVizFeature /></ProtectedRoute>} />
+        <Route path="/codex/operations" element={<ProtectedRoute><CodexOperationsFeature /></ProtectedRoute>} />
+
           <Route path="/" element={<Dashboard />} />
           <Route path="/events" element={<ResourcePage resource="events" title="Events" />} />
           <Route path="/booths" element={<ResourcePage resource="booths" title="Booths" />} />
