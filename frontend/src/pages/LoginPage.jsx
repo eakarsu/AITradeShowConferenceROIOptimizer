@@ -72,7 +72,7 @@ export default function LoginPage() {
         <div className="login-divider">Quick Access</div>
 
         <button className="quick-login" onClick={quickLogin}>
-          Auto-fill Demo Credentials
+          Auto Fill Demo Credentials
         </button>
       </div>
     </div>
