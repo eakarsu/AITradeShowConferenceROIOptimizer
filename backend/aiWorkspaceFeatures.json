@@ -1,0 +1,114 @@
+[
+  {
+    "name": "CfAccountBasedMarketingTargetingPersonalizingOutreachTo",
+    "id": "cf-account-based-marketing-targeting-personalizing-outreach-to-high-value-attendees/history",
+    "title": "Account-based marketing targeting personalizing outreach to high-value attendees",
+    "description": "Prepare a professional advisory report for account-based marketing targeting personalizing outreach to high-value attendees using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "CfAttendeeSentimentTrackingViaPostEventSurveys",
+    "id": "cf-attendee-sentiment-tracking-via-post-event-surveys-to-predict/history",
+    "title": "Attendee sentiment tracking via post-event surveys to predict close probability",
+    "description": "Prepare a professional advisory report for attendee sentiment tracking via post-event surveys to predict close probability using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "CfBadgeScanIntegrationForLiveLeadIngestion",
+    "id": "cf-badge-scan-integration-for-live-lead-ingestion/history",
+    "title": "Badge-scan integration for live lead ingestion",
+    "description": "Prepare a professional advisory report for badge-scan integration for live lead ingestion using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "CfCompetitorWinLossAnalysisTiedToShared",
+    "id": "cf-competitor-win-loss-analysis-tied-to-shared-events/history",
+    "title": "Competitor win/loss analysis tied to shared events",
+    "description": "Prepare a professional advisory report for competitor win/loss analysis tied to shared events using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "CfMultiEventPortfolioOptimizationAcrossCalendarYear",
+    "id": "cf-multi-event-portfolio-optimization-across-calendar-year/history",
+    "title": "Multi-event portfolio optimization across calendar year",
+    "description": "Prepare a professional advisory report for multi-event portfolio optimization across calendar year using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "CfRealTimeBoothTrafficHeatmappingForOn",
+    "id": "cf-real-time-booth-traffic-heatmapping-for-on-the-spot-optimization/history",
+    "title": "Real-time booth traffic heatmapping for on-the-spot optimization",
+    "description": "Prepare a professional advisory report for real-time booth traffic heatmapping for on-the-spot optimization using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapLimitedCrmIntegrationSingleIntegrationModuleNot",
+    "id": "gap-limited-crm-integration-single-integration-module-not-salesforce/history",
+    "title": "Limited CRM integration (single integration module — not Salesforce/HubSpot specific)",
+    "description": "Prepare a professional advisory report for limited crm integration (single integration module — not salesforce/hubspot specific) using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoAiBoothTrafficAnomalyDetection",
+    "id": "gap-no-ai-booth-traffic-anomaly-detection/history",
+    "title": "No AI booth-traffic anomaly detection",
+    "description": "Prepare a professional advisory report for no ai booth-traffic anomaly detection using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoAiLeadQualityClustering",
+    "id": "gap-no-ai-lead-quality-clustering/history",
+    "title": "No AI lead-quality clustering",
+    "description": "Prepare a professional advisory report for no ai lead-quality clustering using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoAiPostEventSentimentAnalysisOf",
+    "id": "gap-no-ai-post-event-sentiment-analysis-of-attendees/history",
+    "title": "No AI post-event sentiment analysis of attendees",
+    "description": "Prepare a professional advisory report for no ai post-event sentiment analysis of attendees using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoAttendeeBadgeIntegrationForRealTime",
+    "id": "gap-no-attendee-badge-integration-for-real-time-tracking/history",
+    "title": "No attendee badge integration for real-time tracking",
+    "description": "Prepare a professional advisory report for no attendee badge integration for real-time tracking using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoAuditLogging",
+    "id": "gap-no-audit-logging/history",
+    "title": "No audit logging",
+    "description": "Prepare a professional advisory report for no audit logging using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoEmailCampaignPlatformIntegration",
+    "id": "gap-no-email-campaign-platform-integration/history",
+    "title": "No email campaign platform integration",
+    "description": "Prepare a professional advisory report for no email campaign platform integration using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoNotificationsSubsystem",
+    "id": "gap-no-notifications-subsystem/history",
+    "title": "No notifications subsystem",
+    "description": "Prepare a professional advisory report for no notifications subsystem using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoPostEventSurveyAutomation",
+    "id": "gap-no-post-event-survey-automation/history",
+    "title": "No post-event survey automation",
+    "description": "Prepare a professional advisory report for no post-event survey automation using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoWebhooks",
+    "id": "gap-no-webhooks/history",
+    "title": "No webhooks",
+    "description": "Prepare a professional advisory report for no webhooks using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  }
+]

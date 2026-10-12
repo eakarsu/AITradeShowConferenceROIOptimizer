@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../api';
+import FormattedAIReport from '../components/FormattedAIReport';
 
 export default function BoothHeatmap() {
   const [events, setEvents] = useState([]);
@@ -110,6 +111,9 @@ export default function BoothHeatmap() {
       </div>
 
       <div className="detail-panel" style={{ marginBottom: 24 }}>
+        <div className="ai-preset-bar"><strong>Existing event views</strong><div className="ai-actions">{events.slice(0, 3).map((event, index) => <button type="button" className="btn btn-secondary" key={event.id} onClick={() => { setEventId(String(event.id)); setSelectedHour(index === 0 ? 'all' : String(index === 1 ? 10 : 15)); }} disabled={aiLoading}>{event.name} · {index === 0 ? 'all hours' : index === 1 ? '10:00' : '15:00'}</button>)}</div></div>
+        {!events.length && <p className="ai-muted">Add an event before viewing AI insights.</p>}
+        {eventId && !booths.length && <p className="ai-muted">Add real booth observations before requesting AI insights. A sample view does not upload a floor plan.</p>}
         <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div className="form-group" style={{ flex: 1, minWidth: 200, marginBottom: 0 }}>
             <label>Event</label>
@@ -194,7 +198,7 @@ export default function BoothHeatmap() {
           {aiInsight && (
             <div className="detail-panel">
               <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 12 }}>🤖 AI Recommendations</h3>
-              <div style={{ fontSize: 13, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{aiInsight}</div>
+              <FormattedAIReport response={aiInsight} title="Booth recommendations" />
             </div>
           )}
         </div>

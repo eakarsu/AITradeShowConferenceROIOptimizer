@@ -297,6 +297,15 @@ function FormModal({ config, item, onSave, onClose, title }) {
   );
 }
 
+export function ResourceTable({ items, config, onRowClick = () => {} }) {
+  return <div className="table-container"><table><thead><tr>
+    {config.columns.map(col => <th key={col}>{col.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</th>)}
+  </tr></thead><tbody>{items.length === 0
+    ? <tr><td colSpan={config.columns.length} style={{ textAlign: 'center', padding: 40, color: 'var(--text-muted)' }}>No records found. Click "New" to add one.</td></tr>
+    : items.map(item => <tr key={item.id} onClick={() => onRowClick(item)}>{config.columns.map(col => <td key={col}>{formatCell(col, item[col])}</td>)}</tr>)
+  }</tbody></table></div>;
+}
+
 export default function ResourcePage({ resource, title, resourceKey }) {
   const key = resourceKey || resource;
   const config = fieldConfigs[key] || fieldConfigs.events;
@@ -388,30 +397,7 @@ export default function ResourcePage({ resource, title, resourceKey }) {
             </button>
           </div>
 
-          <div className="table-container">
-            <table>
-              <thead>
-                <tr>
-                  {config.columns.map(col => (
-                    <th key={col}>{col.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {items.length === 0 ? (
-                  <tr><td colSpan={config.columns.length} style={{ textAlign: 'center', padding: 40, color: 'var(--text-muted)' }}>No records found. Click "New" to add one.</td></tr>
-                ) : (
-                  items.map(item => (
-                    <tr key={item.id} onClick={() => handleRowClick(item)}>
-                      {config.columns.map(col => (
-                        <td key={col}>{formatCell(col, item[col])}</td>
-                      ))}
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+          <ResourceTable items={items} config={config} onRowClick={handleRowClick} />
         </>
       )}
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { api } from '../api';
+import FormattedAIReport from '../components/FormattedAIReport';
 
 const featureInfo = {
   'roi-predictor': { name: 'AI ROI Predictor', icon: '🔮', placeholder: 'e.g., Predict ROI for CES 2026 based on our historical performance...', gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)' },
@@ -28,6 +29,11 @@ export default function AIFeaturePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [history, setHistory] = useState([]);
+  const promptPresets = [
+    `For ${info.name}, assess a B2B software team's upcoming regional trade show. They have a $25,000 budget, two booth staff, and a goal of 30 qualified meetings. Give assumptions, priorities, and measurable next steps.`,
+    `For ${info.name}, review a completed industry conference with 420 booth visits, 74 qualified leads, 12 sales meetings, and $38,000 total spend. Explain the risks, useful comparisons, and actions for the next event.`,
+    `For ${info.name}, prepare an executive recommendation for three planned events with a combined $90,000 budget. Compare reach, staffing, likely lead quality, and what evidence is still needed before approving spend.`,
+  ];
 
   const handleSubmit = async () => {
     if (loading) return;
@@ -73,6 +79,7 @@ export default function AIFeaturePage() {
       </div>
 
       <div className="ai-prompt-box">
+        <div className="ai-preset-bar"><strong>Sample prompts</strong><div className="ai-actions">{promptPresets.map((sample, index) => <button type="button" className="btn btn-secondary" key={index} onClick={() => setPrompt(sample)} disabled={loading}>{['Upcoming event', 'Completed event', 'Executive review'][index]}</button>)}</div></div>
         <input
           type="text"
           className="ai-prompt-input"
@@ -102,7 +109,7 @@ export default function AIFeaturePage() {
         </div>
       )}
 
-      {result && (
+      {result !== null && (
         <div className="ai-output-container">
           <div className="ai-output-header">
             <span className="ai-output-badge">AI Response</span>
@@ -112,7 +119,7 @@ export default function AIFeaturePage() {
             </span>
           </div>
           <div className="ai-output-content">
-            <ReactMarkdown>{result}</ReactMarkdown>
+            <FormattedAIReport response={result} title={info.name} />
           </div>
         </div>
       )}
@@ -128,7 +135,7 @@ export default function AIFeaturePage() {
                 <span style={{ fontSize: 12, color: 'var(--text-muted)', marginLeft: 'auto' }}>{h.time}</span>
               </div>
               <div className="ai-output-content">
-                <ReactMarkdown>{h.result}</ReactMarkdown>
+                <FormattedAIReport response={h.result} title={info.name} />
               </div>
             </div>
           ))}

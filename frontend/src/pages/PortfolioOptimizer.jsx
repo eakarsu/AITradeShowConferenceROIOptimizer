@@ -1,3 +1,4 @@
+import FormattedAIReport from '../components/FormattedAIReport';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
@@ -13,6 +14,13 @@ export default function PortfolioOptimizer() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
+  const presets = [
+    { label: 'Growth plan', values: { fiscal_year: 'FY2027', total_budget_usd: '150000', strategic_goals: 'Increase qualified meetings by 20%\nPrioritize events with measurable pipeline' } },
+    { label: 'Cost discipline', values: { fiscal_year: 'FY2027', total_budget_usd: '90000', strategic_goals: 'Reduce cost per qualified lead\nConcentrate on proven regional events' } },
+    { label: 'Market expansion', values: { fiscal_year: 'FY2028', total_budget_usd: '240000', strategic_goals: 'Enter two new geographic markets\nTest partner-led event formats' } },
+  ];
+  const fillPreset = (values) => setForm((current) => ({ ...current, ...values }));
+
 
   const handleChange = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
@@ -51,6 +59,7 @@ export default function PortfolioOptimizer() {
       </div>
 
       <div className="ai-prompt-box" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 12 }}>
+        <div className="ai-preset-bar"><strong>Fill every field</strong><div className="ai-actions">{presets.map((preset) => <button type="button" className="btn btn-secondary" key={preset.label} onClick={() => fillPreset(preset.values)} disabled={loading}>{preset.label}</button>)}</div></div>
         <input className="ai-prompt-input" type="text" placeholder="Fiscal Year (e.g., FY2026)" value={form.fiscal_year} onChange={(e) => handleChange('fiscal_year', e.target.value)} />
         <input className="ai-prompt-input" type="number" placeholder="Total Budget (USD)" value={form.total_budget_usd} onChange={(e) => handleChange('total_budget_usd', e.target.value)} />
         <textarea className="ai-prompt-input" rows={4} placeholder="Strategic Goals (one per line)" value={form.strategic_goals} onChange={(e) => handleChange('strategic_goals', e.target.value)} />
@@ -61,12 +70,10 @@ export default function PortfolioOptimizer() {
 
       {error && <div className="alert alert-error" style={{ marginTop: 16 }}>{error}</div>}
 
-      {result && (
+      {result !== null && (
         <div className="ai-result-box" style={{ marginTop: 16 }}>
           <h3>Portfolio Recommendations</h3>
-          {typeof result === 'string' ? <ReactMarkdown>{result}</ReactMarkdown> : (
-            <pre style={{ whiteSpace: 'pre-wrap', fontSize: 13 }}>{JSON.stringify(result, null, 2)}</pre>
-          )}
+          <FormattedAIReport response={result} />
         </div>
       )}
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import FormattedAIReport from '../components/FormattedAIReport';
 import { api } from '../api';
 
 const STEP_TEMPLATES = [
@@ -120,6 +121,8 @@ export default function FollowupSequences() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
         <div className="detail-panel">
           <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>1. Pick Lead</h3>
+          <div className="ai-preset-bar"><strong>Lead examples</strong><div className="ai-actions">{leads.slice(0, 3).map((lead, index) => <button type="button" className="btn btn-secondary" key={lead.id} onClick={() => { setSelectedLead(String(lead.id)); setSequence(STEP_TEMPLATES.map((step) => ({ ...step, tone: ['warm and concise', 'consultative and specific', 'direct and professional'][index] }))); }}>{lead.contact_name} · {lead.company}</button>)}</div></div>
+          {!leads.length && <p className="ai-muted">Add a lead before drafting a sequence.</p>}
           <div className="form-group">
             <label>Lead</label>
             <select className="form-control" value={selectedLead} onChange={e => setSelectedLead(e.target.value)}>
@@ -164,7 +167,7 @@ export default function FollowupSequences() {
             </div>
             {generated[i] && (
               <div className="ai-output-content" style={{ fontSize: 13, padding: 12, background: 'rgba(0,0,0,0.2)', borderRadius: 6 }}>
-                <ReactMarkdown>{generated[i]}</ReactMarkdown>
+                <FormattedAIReport response={generated[i]} title="Follow-up draft" />
               </div>
             )}
           </div>

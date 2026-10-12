@@ -75,6 +75,14 @@ if (process.env.ENABLE_LEGACY_PROVIDER_ROUTES === 'true') {
   for (const [routePath, modulePath] of legacyRoutes) app.use(routePath, require(modulePath));
 }
 
+
+// Advisory AI reports only; native execution and approval routes stay unchanged.
+const aiWorkspaceSupport = require("./aiWorkspaceAdapters.cjs");
+const aiWorkspaceDatabase = require("./db.js");
+app.use('/api/report-workspace', require("./aiWorkspace.cjs").createAIWorkspaceRouter({
+  pool: aiWorkspaceDatabase, authenticateToken: require("./middleware/auth.js"),
+  aiRateLimiter: aiWorkspaceSupport.createWorkspaceLimiter(), features: require("./aiWorkspaceFeatures.json"),
+}));
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err.message);

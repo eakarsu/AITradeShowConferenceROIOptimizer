@@ -18,13 +18,21 @@ async function request(url, options = {}) {
   return data;
 }
 
+// Resource routes currently return arrays. Also accept the paginated envelopes
+// used by newer routes without passing an object into a table's map/length.
+export function resourceRows(payload, resource) {
+  const rows = Array.isArray(payload) ? payload : payload?.data ?? payload?.items;
+  if (!Array.isArray(rows)) throw new Error(`Invalid ${resource} list response: expected an array of records.`);
+  return rows;
+}
+
 export const api = {
   // Auth
   login: (body) => request('/auth/login', { method: 'POST', body: JSON.stringify(body) }),
   register: (body) => request('/auth/register', { method: 'POST', body: JSON.stringify(body) }),
 
   // CRUD for each resource
-  getAll: (resource) => request(`/${resource}`),
+  getAll: async (resource) => resourceRows(await request(`/${resource}`), resource),
   getOne: (resource, id) => request(`/${resource}/${id}`),
   create: (resource, body) => request(`/${resource}`, { method: 'POST', body: JSON.stringify(body) }),
   update: (resource, id, body) => request(`/${resource}/${id}`, { method: 'PUT', body: JSON.stringify(body) }),

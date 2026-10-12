@@ -1,3 +1,4 @@
+import AIReportLibrary from "./components/AIReportLibrary";
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
@@ -148,7 +149,7 @@ function Sidebar() {
           ⏻
         </button>
       </div>
-    </div>
+    <AIReportLibrary /></div>
   );
 }
 

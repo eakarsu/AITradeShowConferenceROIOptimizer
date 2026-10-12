@@ -5,6 +5,26 @@ const jwt = require('jsonwebtoken');
 const pool = require('../db');
 const auth = require('../middleware/auth');
 
+// Explicitly opt in on a local development server; never expose configured
+// credentials from a hosted instance or to a remote browser.
+router.get('/demo-credentials', (req, res) => {
+  const localAddress = ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(req.socket.remoteAddress);
+  if (process.env.NODE_ENV === 'production' || process.env.ENABLE_DEMO_CREDENTIAL_AUTOFILL !== 'true' || !localAddress) {
+    return res.status(404).json({ error: 'Demo credential autofill is unavailable.' });
+  }
+  const pairs = [
+    ['DEMO_ADMIN_EMAIL', 'DEMO_ADMIN_PASSWORD'],
+    ['DEMO_EMAIL', 'DEMO_PASSWORD'],
+    ['SEED_ADMIN_EMAIL', 'SEED_ADMIN_PASSWORD'],
+    ['ADMIN_EMAIL', 'ADMIN_PASSWORD'],
+    ['DEFAULT_EMAIL', 'DEFAULT_PASSWORD'],
+  ];
+  const pair = pairs.find(([emailKey, passwordKey]) => process.env[emailKey] && process.env[passwordKey]);
+  if (!pair) return res.status(404).json({ error: 'No complete demo credential pair is configured.' });
+  res.set('Cache-Control', 'no-store');
+  res.json({ email: process.env[pair[0]], password: process.env[pair[1]] });
+});
+
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;

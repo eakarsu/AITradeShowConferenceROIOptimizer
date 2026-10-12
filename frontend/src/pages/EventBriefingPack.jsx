@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import FormattedAIReport from '../components/FormattedAIReport';
 import { api } from '../api';
 
 export default function EventBriefingPack() {
@@ -88,6 +89,8 @@ Generate a comprehensive 24h pre-event briefing pack including: (1) Executive ov
       </div>
 
       <div className="detail-panel" style={{ marginBottom: 24 }}>
+        <div className="ai-preset-bar"><strong>Existing event examples</strong><div className="ai-actions">{events.slice(0, 3).map((event) => <button type="button" className="btn btn-secondary" key={event.id} onClick={() => setEventId(String(event.id))} disabled={loading}>{event.name}</button>)}</div></div>
+        {!events.length && <p className="ai-muted">Add an event before preparing a briefing.</p>}
         <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', flexWrap: 'wrap' }}>
           <div className="form-group" style={{ flex: 1, minWidth: 240, marginBottom: 0 }}>
             <label>Upcoming Event</label>
@@ -123,7 +126,7 @@ Generate a comprehensive 24h pre-event briefing pack including: (1) Executive ov
             </span>
           </div>
           <div className="ai-output-content">
-            <ReactMarkdown>{briefing}</ReactMarkdown>
+            <FormattedAIReport response={briefing} title="Event briefing" />
           </div>
         </div>
       )}

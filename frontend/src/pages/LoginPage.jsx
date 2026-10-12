@@ -25,9 +25,17 @@ export default function LoginPage() {
     }
   };
 
-  const quickLogin = () => {
-    setEmail(import.meta.env.VITE_DEMO_EMAIL || '');
-    setPassword(import.meta.env.VITE_DEMO_PASSWORD || '');
+  const quickLogin = async () => {
+    setError('');
+    try {
+      const response = await fetch('/api/auth/demo-credentials', { cache: 'no-store' });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Demo credentials are unavailable.');
+      setEmail(data.email);
+      setPassword(data.password);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -71,8 +79,8 @@ export default function LoginPage() {
 
         <div className="login-divider">Quick Access</div>
 
-        <button className="quick-login" onClick={quickLogin}>
-          Auto Fill Demo Credentials
+        <button type="button" className="quick-login" onClick={quickLogin} disabled={loading}>
+          Fill Demo Credentials
         </button>
       </div>
     </div>

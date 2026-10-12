@@ -115,6 +115,8 @@ export default function LeadCaptureOCR() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
         <div className="detail-panel">
           <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>1. Set Context</h3>
+          <div className="ai-preset-bar"><strong>Sample contexts</strong><div className="ai-actions">{['Enterprise interest', 'Partner conversation', 'Product follow-up'].map((label, index) => <button type="button" className="btn btn-secondary" key={label} onClick={() => { const nextEvent = eventId || (events[index]?.id ? String(events[index].id) : ''); setEventId(nextEvent); if (!booths.some((booth) => String(booth.id) === boothId && booth.event_id === Number(nextEvent))) setBoothId(String(booths.find((booth) => booth.event_id === Number(nextEvent))?.id || '')); setVoiceNote(['Asked about enterprise integration and a Q1 rollout.', 'Discussed a joint webinar and partner referral process.', 'Requested product pricing and a technical follow-up.'][index]); }}>{label}</button>)}</div></div>
+          {!imageFile && <p className="ai-muted">Upload a real card image before extraction. Sample contexts cannot select a file.</p>}
           <div className="form-group">
             <label>Event</label>
             <select className="form-control" value={eventId} onChange={e => { setEventId(e.target.value); setBoothId(''); }}>

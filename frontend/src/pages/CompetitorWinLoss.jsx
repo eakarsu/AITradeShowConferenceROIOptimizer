@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import FormattedAIReport from "../components/FormattedAIReport";
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { api } from '../api';
@@ -14,6 +15,15 @@ export default function CompetitorWinLoss() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
+  const [events, setEvents] = useState([]);
+  useEffect(() => { api.getAll('events').then(setEvents).catch(() => setEvents([])); }, []);
+  const presets = [
+    { label: 'Enterprise deals', values: { deals_won: 'Acme Corp: won on integration and support', deals_lost: 'Northstar Ltd: lost on implementation timeline', narrative: 'Compare sales cycle and integration objections before the next event.' } },
+    { label: 'Midmarket deals', values: { deals_won: 'Beacon Inc: won on price transparency', deals_lost: 'Orion Co: lost on missing reporting feature', narrative: 'Identify product gaps and repeatable value messages.' } },
+    { label: 'Partner channel', values: { deals_won: 'Harbor Group: won through partner referral', deals_lost: 'Cedar LLC: lost to incumbent relationship', narrative: 'Review partner influence, renewal timing, and proof points.' } },
+  ];
+  const fillPreset = (values) => setForm((current) => ({ ...current, ...values, event_id: current.event_id || (events[0] ? String(events[0].id) : '') }));
+
 
   const handleChange = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
@@ -61,7 +71,9 @@ export default function CompetitorWinLoss() {
       </div>
 
       <div className="ai-prompt-box" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 12 }}>
-        <input className="ai-prompt-input" type="number" placeholder="Event ID (optional)" value={form.event_id} onChange={(e) => handleChange('event_id', e.target.value)} />
+        <div className="ai-preset-bar"><strong>Fill every field</strong><div className="ai-actions">{presets.map((preset) => <button type="button" className="btn btn-secondary" key={preset.label} onClick={() => fillPreset(preset.values)} disabled={loading}>{preset.label}</button>)}</div></div>
+        {!form.event_id && !events.length && <p className="ai-muted">No event reference is available; select an existing event when one is available.</p>}
+        <select className="ai-prompt-input" aria-label="Event (optional)" value={form.event_id} onChange={(e) => handleChange('event_id', e.target.value)}><option value="">No event selected</option>{events.map((event) => <option key={event.id} value={event.id}>{event.name}</option>)}</select>
         <textarea className="ai-prompt-input" rows={4} placeholder="Deals Won (one per line, or JSON array of objects)" value={form.deals_won} onChange={(e) => handleChange('deals_won', e.target.value)} />
         <textarea className="ai-prompt-input" rows={4} placeholder="Deals Lost (one per line, or JSON array of objects)" value={form.deals_lost} onChange={(e) => handleChange('deals_lost', e.target.value)} />
         <textarea className="ai-prompt-input" rows={3} placeholder="Narrative / additional context (optional)" value={form.narrative} onChange={(e) => handleChange('narrative', e.target.value)} />
@@ -72,12 +84,10 @@ export default function CompetitorWinLoss() {
 
       {error && <div className="alert alert-error" style={{ marginTop: 16 }}>{error}</div>}
 
-      {result && (
+      {result !== null && (
         <div className="ai-result-box" style={{ marginTop: 16 }}>
           <h3>Win/Loss Insights</h3>
-          {typeof result === 'string' ? <ReactMarkdown>{result}</ReactMarkdown> : (
-            <pre style={{ whiteSpace: 'pre-wrap', fontSize: 13 }}>{JSON.stringify(result, null, 2)}</pre>
-          )}
+          <FormattedAIReport response={result} />
         </div>
       )}
     </div>
